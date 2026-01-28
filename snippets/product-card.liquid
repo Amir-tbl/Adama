@@ -1,0 +1,141 @@
+{%- comment -%}
+  Renders a product card
+
+  Accepts:
+  - product: {Object} Shopify product object
+  - show_vendor: {Boolean} Show vendor name
+  - lazy_load: {Boolean} Enable lazy loading (default: true)
+{%- endcomment -%}
+
+{%- liquid
+  assign lazy_load = lazy_load | default: true
+-%}
+
+<div class="product-card" data-product-card data-product-id="{{ product.id }}">
+  <div class="product-card__media">
+    <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title }}">
+      {%- if product.featured_media -%}
+        <img
+          src="{{ product.featured_media | image_url: width: 600 }}"
+          srcset="
+            {{ product.featured_media | image_url: width: 300 }} 300w,
+            {{ product.featured_media | image_url: width: 450 }} 450w,
+            {{ product.featured_media | image_url: width: 600 }} 600w
+          "
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+          alt="{{ product.featured_media.alt | escape | default: product.title }}"
+          width="{{ product.featured_media.width }}"
+          height="{{ product.featured_media.height }}"
+          loading="{% if lazy_load %}lazy{% else %}eager{% endif %}"
+          class="product-card__image product-card__image--primary"
+        >
+        {%- if product.media.size > 1 -%}
+          <img
+            src="{{ product.media[1] | image_url: width: 600 }}"
+            srcset="
+              {{ product.media[1] | image_url: width: 300 }} 300w,
+              {{ product.media[1] | image_url: width: 450 }} 450w,
+              {{ product.media[1] | image_url: width: 600 }} 600w
+            "
+            sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+            alt="{{ product.media[1].alt | escape | default: product.title }}"
+            width="{{ product.media[1].width }}"
+            height="{{ product.media[1].height }}"
+            loading="lazy"
+            class="product-card__image product-card__image--secondary"
+          >
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </a>
+
+    {%- comment -%} Badges {%- endcomment -%}
+    <div class="product-card__badges">
+      {%- if product.compare_at_price > product.price -%}
+        {%- assign savings = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price -%}
+        <span class="product-card__badge product-card__badge--sale">-{{ savings }}%</span>
+      {%- endif -%}
+      {%- if product.available == false -%}
+        <span class="product-card__badge product-card__badge--sold-out">{{ 'products.product.sold_out' | t }}</span>
+      {%- endif -%}
+      {%- assign now_timestamp = 'now' | date: '%s' | times: 1 -%}
+      {%- assign product_timestamp = product.created_at | date: '%s' | times: 1 -%}
+      {%- assign diff = now_timestamp | minus: product_timestamp -%}
+      {%- if diff < 2592000 -%}
+        <span class="product-card__badge product-card__badge--new">{{ 'products.product.new' | t }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Quick Actions {%- endcomment -%}
+    <div class="product-card__actions">
+      <button
+        type="button"
+        class="product-card__action product-card__quick-add"
+        data-quick-add="{{ product.selected_or_first_available_variant.id }}"
+        aria-label="{{ 'products.product.add_to_cart' | t }}"
+        {% unless product.available %}disabled{% endunless %}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="product-card__action product-card__wishlist-btn"
+        data-wishlist-add="{{ product.id }}"
+        aria-label="{{ 'products.product.add_to_wishlist' | t }}"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="product-card__action product-card__quick-view-btn"
+        data-quick-view="{{ product.url }}"
+        aria-label="{{ 'products.product.quick_view' | t }}"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="product-card__info">
+    {%- if show_vendor and product.vendor != blank -%}
+      <p class="product-card__vendor">{{ product.vendor }}</p>
+    {%- endif -%}
+    <h3 class="product-card__title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+    <div class="product-card__price">
+      {%- if product.compare_at_price > product.price -%}
+        <span class="product-card__price--sale">{{ product.price | money }}</span>
+        <span class="product-card__price--compare">{{ product.compare_at_price | money }}</span>
+      {%- else -%}
+        <span class="product-card__price--regular">{{ product.price | money }}</span>
+      {%- endif -%}
+      {%- if product.price_varies -%}
+        <span class="product-card__price--from">{{ 'products.product.from' | t }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Color swatches {%- endcomment -%}
+    {%- if product.options_by_name['Color'].values.size > 1 -%}
+      <div class="product-card__swatches">
+        {%- for color in product.options_by_name['Color'].values limit: 5 -%}
+          <span
+            class="product-card__swatch"
+            style="background-color: {{ color | handleize }};"
+            title="{{ color }}"
+          ></span>
+        {%- endfor -%}
+        {%- if product.options_by_name['Color'].values.size > 5 -%}
+          <span class="product-card__swatch-more">+{{ product.options_by_name['Color'].values.size | minus: 5 }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>

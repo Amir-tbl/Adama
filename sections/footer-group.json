@@ -1,0 +1,37 @@
+{
+  "type": "footer",
+  "name": "Footer Group",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "description": "Timeless elegance meets modern style. Premium quality clothing for the discerning individual."
+      },
+      "blocks": {
+        "menu-1": {
+          "type": "menu",
+          "settings": {
+            "heading": "Shop",
+            "menu": "footer"
+          }
+        },
+        "menu-2": {
+          "type": "menu",
+          "settings": {
+            "heading": "Information",
+            "menu": "footer"
+          }
+        },
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "heading": "Contact Us",
+            "text": "<p>Email: hello@adama.com<br>Phone: +1 234 567 890<br>Mon-Fri: 9am - 6pm</p>"
+          }
+        }
+      },
+      "block_order": ["menu-1", "menu-2", "text-1"]
+    }
+  },
+  "order": ["footer"]
+}

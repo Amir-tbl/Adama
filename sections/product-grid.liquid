@@ -1,0 +1,93 @@
+<div class="product-grid-section section-spacing" data-animate="fade-in">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <div class="section-header" data-animate="fade-up">
+        <h2 class="section-header__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.description != blank -%}
+          <p class="section-header__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="product-grid product-grid--{{ section.settings.columns_desktop }}-col">
+      {%- if section.settings.collection != blank -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          <div class="product-grid__item" data-animate="fade-up" data-delay="{{ forloop.index | times: 100 }}">
+            {% render 'product-card', product: product, show_vendor: section.settings.show_vendor %}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          <div class="product-grid__item" data-animate="fade-up" data-delay="{{ forloop.index | times: 100 }}">
+            <div class="product-card">
+              <div class="product-card__media">
+                {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="product-card__info">
+                <h3 class="product-card__title">Example Product {{ forloop.index }}</h3>
+                <p class="product-card__price">{{ 4999 | money }}</p>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Grid",
+  "tag": "section",
+  "class": "section-product-grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Our Products",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 16,
+      "step": 1,
+      "default": 8,
+      "label": "Products to show"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "options": [
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" }
+      ],
+      "default": "4",
+      "label": "Desktop columns"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "Show vendor"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid"
+    }
+  ]
+}
+{% endschema %}

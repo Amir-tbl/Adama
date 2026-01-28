@@ -1,0 +1,260 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Adama",
+    "theme_version": "1.0.0",
+    "theme_author": "Adama",
+    "theme_documentation_url": "",
+    "theme_support_url": ""
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "default": "#1a1a1a",
+        "label": "Primary color"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "default": "#6b6b6b",
+        "label": "Secondary color"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "default": "#8b7355",
+        "label": "Accent color"
+      },
+      {
+        "type": "header",
+        "content": "Background Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "default": "#ffffff",
+        "label": "Background"
+      },
+      {
+        "type": "color",
+        "id": "color_background_secondary",
+        "default": "#f5f0eb",
+        "label": "Secondary background"
+      },
+      {
+        "type": "header",
+        "content": "Text Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "default": "#1a1a1a",
+        "label": "Text color"
+      },
+      {
+        "type": "color",
+        "id": "color_text_secondary",
+        "default": "#6b6b6b",
+        "label": "Secondary text color"
+      },
+      {
+        "type": "header",
+        "content": "Border & UI"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "default": "#e0dcd7",
+        "label": "Border color"
+      },
+      {
+        "type": "color",
+        "id": "color_sale",
+        "default": "#b44141",
+        "label": "Sale badge color"
+      },
+      {
+        "type": "color",
+        "id": "color_success",
+        "default": "#4a7c59",
+        "label": "Success color"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "default": "cormorant_garamond_n4",
+        "label": "Heading font"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 80,
+        "max": 150,
+        "step": 5,
+        "default": 100,
+        "unit": "%",
+        "label": "Heading font size scale"
+      },
+      {
+        "type": "header",
+        "content": "Body"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "default": "montserrat_n4",
+        "label": "Body font"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 80,
+        "max": 130,
+        "step": 5,
+        "default": 100,
+        "unit": "%",
+        "label": "Body font size scale"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 50,
+        "default": 1280,
+        "unit": "px",
+        "label": "Page width"
+      },
+      {
+        "type": "range",
+        "id": "spacing_sections",
+        "min": 20,
+        "max": 100,
+        "step": 5,
+        "default": 60,
+        "unit": "px",
+        "label": "Space between sections"
+      },
+      {
+        "type": "range",
+        "id": "border_radius",
+        "min": 0,
+        "max": 16,
+        "step": 2,
+        "default": 4,
+        "unit": "px",
+        "label": "Border radius"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32 x 32px .png recommended"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social accounts"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter_link",
+        "label": "Twitter / X"
+      },
+      {
+        "type": "url",
+        "id": "social_pinterest_link",
+        "label": "Pinterest"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok_link",
+        "label": "TikTok"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube_link",
+        "label": "YouTube"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "options": [
+          { "value": "drawer", "label": "Drawer" },
+          { "value": "page", "label": "Page" }
+        ],
+        "default": "drawer",
+        "label": "Cart type"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_free_shipping_bar",
+        "default": true,
+        "label": "Show free shipping progress bar"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_threshold",
+        "default": "150",
+        "label": "Free shipping threshold",
+        "info": "Enter amount without currency symbol"
+      }
+    ]
+  },
+  {
+    "name": "Custom CSS",
+    "settings": [
+      {
+        "type": "html",
+        "id": "custom_css",
+        "label": "Custom CSS",
+        "info": "Add custom CSS styles here"
+      }
+    ]
+  }
+]

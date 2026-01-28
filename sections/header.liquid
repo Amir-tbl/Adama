@@ -1,0 +1,228 @@
+{%- style -%}
+  .header-wrapper {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+  }
+{%- endstyle -%}
+
+<header class="header-wrapper{% if section.settings.sticky_header %} header--sticky{% endif %}" data-header>
+  <div class="header container">
+    {%- comment -%} Mobile menu toggle {%- endcomment -%}
+    <button
+      class="header__menu-toggle mobile-only"
+      aria-label="{{ 'accessibility.menu' | t }}"
+      aria-expanded="false"
+      data-mobile-menu-toggle
+    >
+      <span class="hamburger">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </span>
+    </button>
+
+    {%- comment -%} Logo {%- endcomment -%}
+    <div class="header__logo">
+      <a href="{{ routes.root_url }}" class="header__logo-link" aria-label="{{ shop.name }}">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: 300 }}"
+            srcset="
+              {{ section.settings.logo | image_url: width: 150 }} 150w,
+              {{ section.settings.logo | image_url: width: 300 }} 300w
+            "
+            alt="{{ shop.name }}"
+            width="{{ section.settings.logo_width }}"
+            height="auto"
+            loading="eager"
+            class="header__logo-image"
+          >
+        {%- else -%}
+          <span class="header__logo-text">{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    {%- comment -%} Desktop Navigation {%- endcomment -%}
+    <nav class="header__nav desktop-only" role="navigation" aria-label="{{ 'accessibility.navigation' | t }}">
+      <ul class="header__nav-list" role="menubar">
+        {%- for link in section.settings.menu.links -%}
+          <li class="header__nav-item{% if link.links.size > 0 %} has-dropdown{% endif %}" role="none">
+            {%- if link.links.size > 0 -%}
+              <button
+                class="header__nav-link"
+                aria-expanded="false"
+                aria-haspopup="true"
+                role="menuitem"
+              >
+                {{ link.title }}
+                <svg class="icon-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                  <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <div class="header__dropdown" role="menu">
+                <ul class="header__dropdown-list">
+                  {%- for child_link in link.links -%}
+                    <li role="none">
+                      <a href="{{ child_link.url }}" class="header__dropdown-link" role="menuitem">
+                        {{ child_link.title }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- else -%}
+              <a href="{{ link.url }}" class="header__nav-link" role="menuitem">
+                {{ link.title }}
+              </a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    {%- comment -%} Header Icons {%- endcomment -%}
+    <div class="header__icons">
+      <button class="header__icon" data-search-toggle aria-label="{{ 'accessibility.search' | t }}">
+        {% render 'icon-search' %}
+      </button>
+
+      <a href="{{ routes.account_url }}" class="header__icon desktop-only" aria-label="{{ 'accessibility.account' | t }}">
+        {% render 'icon-account' %}
+      </a>
+
+      <button class="header__icon header__icon--wishlist" data-wishlist-toggle aria-label="Wishlist">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+        <span class="header__wishlist-count" data-wishlist-count style="display:none;">0</span>
+      </button>
+
+      <button class="header__icon header__icon--cart" data-cart-toggle aria-label="{{ 'accessibility.cart' | t }}">
+        {% render 'icon-cart' %}
+        <span class="header__cart-count{% if cart.item_count == 0 %} hidden{% endif %}" data-cart-count>
+          {{ cart.item_count }}
+        </span>
+      </button>
+    </div>
+  </div>
+
+  {%- comment -%} Search Overlay {%- endcomment -%}
+  <div class="search-overlay" data-search-overlay aria-hidden="true">
+    <div class="search-overlay__inner container">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-overlay__form">
+        <input type="hidden" name="type" value="product">
+        <input
+          type="search"
+          name="q"
+          class="search-overlay__input"
+          placeholder="{{ 'general.search.placeholder' | t }}"
+          autocomplete="off"
+          aria-label="{{ 'general.search.placeholder' | t }}"
+          data-predictive-search-input
+        >
+        <button type="submit" class="search-overlay__submit" aria-label="{{ 'general.search.submit' | t }}">
+          {% render 'icon-search' %}
+        </button>
+        <button type="button" class="search-overlay__close" data-search-close aria-label="{{ 'accessibility.close' | t }}">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M18 6L6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </form>
+      <div class="predictive-search" data-predictive-search-results aria-live="polite"></div>
+    </div>
+  </div>
+
+  {%- comment -%} Mobile Navigation {%- endcomment -%}
+  <div class="mobile-nav" data-mobile-nav aria-hidden="true">
+    <div class="mobile-nav__header">
+      <span class="mobile-nav__title">{{ 'general.navigation.menu' | t }}</span>
+      <button class="mobile-nav__close" data-mobile-menu-close aria-label="{{ 'accessibility.close' | t }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-nav__content" role="navigation">
+      <ul class="mobile-nav__list">
+        {%- for link in section.settings.menu.links -%}
+          <li class="mobile-nav__item{% if link.links.size > 0 %} has-children{% endif %}">
+            {%- if link.links.size > 0 -%}
+              <button class="mobile-nav__link mobile-nav__toggle" aria-expanded="false">
+                {{ link.title }}
+                <svg class="icon-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                  <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              <ul class="mobile-nav__sublist">
+                {%- for child_link in link.links -%}
+                  <li>
+                    <a href="{{ child_link.url }}" class="mobile-nav__sublink">{{ child_link.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- else -%}
+              <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class="mobile-nav__footer">
+        <a href="{{ routes.account_url }}" class="mobile-nav__link">
+          {% render 'icon-account' %}
+          <span>{{ 'customer.account.title' | t }}</span>
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 130,
+      "unit": "px",
+      "label": "Logo width"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "default": true,
+      "label": "Enable sticky header"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "default": "#FFFFFF",
+      "label": "Background color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "default": "#1a1a1a",
+      "label": "Text color"
+    }
+  ]
+}
+{% endschema %}

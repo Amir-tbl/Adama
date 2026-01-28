@@ -1,0 +1,50 @@
+{%- if section.settings.show_bar -%}
+  <div class="announcement-bar" role="region" aria-label="{{ 'accessibility.announcement' | t }}" data-announcement-bar>
+    <div class="container announcement-bar__inner">
+      {%- if section.settings.link != blank -%}
+        <a href="{{ section.settings.link }}" class="announcement-bar__link">
+          {{ section.settings.text | default: 'Welcome to our store' }}
+        </a>
+      {%- else -%}
+        <p class="announcement-bar__text">{{ section.settings.text | default: 'Welcome to our store' }}</p>
+      {%- endif -%}
+      <button class="announcement-bar__close" data-announcement-close aria-label="{{ 'accessibility.close' | t }}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "section",
+  "class": "section-announcement",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_bar",
+      "default": true,
+      "label": "Show announcement bar"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "default": "Free shipping on orders over $150",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

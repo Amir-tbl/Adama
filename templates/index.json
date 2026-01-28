@@ -1,0 +1,135 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Free shipping on orders over $150",
+        "link": "",
+        "show_bar": true
+      }
+    },
+    "hero-banner": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Timeless Elegance, Modern Spirit",
+        "subheading": "Discover our new collection blending classic craftsmanship with contemporary design",
+        "button_label": "Shop Now",
+        "button_link": "/collections/all",
+        "text_alignment": "center",
+        "overlay_opacity": 30
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New Arrivals",
+        "description": "The latest additions to our curated collection",
+        "products_to_show": 8,
+        "columns_desktop": 4
+      }
+    },
+    "brand-values": {
+      "type": "brand-values",
+      "settings": {
+        "title": "Our Commitment"
+      },
+      "blocks": {
+        "value-1": {
+          "type": "value",
+          "settings": {
+            "icon": "quality",
+            "heading": "Premium Quality",
+            "text": "Crafted from the finest materials, each piece is made to last and age beautifully."
+          }
+        },
+        "value-2": {
+          "type": "value",
+          "settings": {
+            "icon": "sustainable",
+            "heading": "Sustainable Fashion",
+            "text": "Ethically sourced and responsibly manufactured with minimal environmental impact."
+          }
+        },
+        "value-3": {
+          "type": "value",
+          "settings": {
+            "icon": "shipping",
+            "heading": "Free Shipping",
+            "text": "Complimentary shipping on all orders over $150, delivered to your door with care."
+          }
+        },
+        "value-4": {
+          "type": "value",
+          "settings": {
+            "icon": "returns",
+            "heading": "Easy Returns",
+            "text": "30-day hassle-free returns. We want you to love every piece you wear."
+          }
+        }
+      },
+      "block_order": ["value-1", "value-2", "value-3", "value-4"]
+    },
+    "featured-collection-2": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Bestsellers",
+        "description": "Our most loved pieces, chosen by you",
+        "products_to_show": 4,
+        "columns_desktop": 4
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "title": "What Our Customers Say"
+      },
+      "blocks": {
+        "testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Sophie M.",
+            "location": "Paris, France",
+            "text": "The quality is exceptional. Every piece I've purchased has become a staple in my wardrobe.",
+            "rating": 5
+          }
+        },
+        "testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "author": "James L.",
+            "location": "London, UK",
+            "text": "Finally, a brand that understands the balance between classic and contemporary. Impeccable craftsmanship.",
+            "rating": 5
+          }
+        },
+        "testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "author": "Elena R.",
+            "location": "Milan, Italy",
+            "text": "Beautiful fabrics, perfect fit, and the attention to detail is remarkable. Highly recommended.",
+            "rating": 5
+          }
+        }
+      },
+      "block_order": ["testimonial-1", "testimonial-2", "testimonial-3"]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join the Family",
+        "subheading": "Subscribe to receive exclusive offers, early access to new collections, and styling tips.",
+        "button_label": "Subscribe"
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "hero-banner",
+    "featured-collection",
+    "brand-values",
+    "featured-collection-2",
+    "testimonials",
+    "newsletter"
+  ]
+}

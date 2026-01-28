@@ -1,0 +1,108 @@
+<div class="cart-drawer" data-cart-drawer aria-hidden="true" role="dialog" aria-label="{{ 'cart.general.title' | t }}">
+  <div class="cart-drawer__overlay" data-cart-drawer-close></div>
+  <div class="cart-drawer__content">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">{{ 'cart.general.title' | t }}</h2>
+      <button class="cart-drawer__close" data-cart-drawer-close aria-label="{{ 'accessibility.close' | t }}">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="cart-drawer__body" data-cart-drawer-body>
+      {%- if cart.item_count > 0 -%}
+        <div class="cart-drawer__items" data-cart-drawer-items>
+          {%- for item in cart.items -%}
+            <div class="cart-drawer__item" data-cart-drawer-item data-line="{{ forloop.index }}" data-key="{{ item.key }}">
+              <div class="cart-drawer__item-media">
+                <a href="{{ item.url }}">
+                  {%- if item.image -%}
+                    <img
+                      src="{{ item.image | image_url: width: 150 }}"
+                      alt="{{ item.image.alt | escape | default: item.product.title }}"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </a>
+              </div>
+              <div class="cart-drawer__item-info">
+                <a href="{{ item.url }}" class="cart-drawer__item-title">{{ item.product.title }}</a>
+                {%- unless item.product.has_only_default_variant -%}
+                  <p class="cart-drawer__item-variant">{{ item.variant.title }}</p>
+                {%- endunless -%}
+                <div class="cart-drawer__item-bottom">
+                  <div class="quantity-selector quantity-selector--sm" data-quantity-selector>
+                    <button
+                      type="button"
+                      class="quantity-selector__btn"
+                      data-quantity-minus
+                      data-line="{{ forloop.index }}"
+                      aria-label="{{ 'cart.general.decrease' | t }}"
+                    >-</button>
+                    <input
+                      type="number"
+                      value="{{ item.quantity }}"
+                      min="0"
+                      class="quantity-selector__input"
+                      data-quantity-input
+                      data-line="{{ forloop.index }}"
+                      aria-label="{{ 'cart.label.quantity' | t }}"
+                    >
+                    <button
+                      type="button"
+                      class="quantity-selector__btn"
+                      data-quantity-plus
+                      data-line="{{ forloop.index }}"
+                      aria-label="{{ 'cart.general.increase' | t }}"
+                    >+</button>
+                  </div>
+                  <span class="cart-drawer__item-price" data-item-price>{{ item.final_line_price | money }}</span>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="cart-drawer__item-remove"
+                data-cart-remove
+                data-line="{{ forloop.index }}"
+                aria-label="{{ 'cart.general.remove' | t }}: {{ item.product.title }}"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- else -%}
+        <div class="cart-drawer__empty" data-cart-drawer-empty>
+          <p>{{ 'cart.general.empty' | t }}</p>
+          <a href="{{ routes.all_products_collection_url }}" class="btn btn--primary">
+            {{ 'cart.general.continue_shopping' | t }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="cart-drawer__footer" data-cart-drawer-footer>
+        <div class="cart-drawer__upsell" data-cart-upsell>
+          {%- comment -%} Upsell products loaded via JS {%- endcomment -%}
+        </div>
+        <div class="cart-drawer__subtotal">
+          <span>{{ 'cart.general.subtotal' | t }}</span>
+          <span data-cart-drawer-subtotal>{{ cart.total_price | money }}</span>
+        </div>
+        <p class="cart-drawer__shipping-note">{{ 'cart.general.shipping_at_checkout' | t }}</p>
+        <a href="{{ routes.cart_url }}/checkout" class="btn btn--primary btn--full cart-drawer__checkout">
+          {{ 'cart.general.checkout' | t }}
+        </a>
+        <a href="{{ routes.cart_url }}" class="cart-drawer__view-cart">
+          {{ 'cart.general.view_cart' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

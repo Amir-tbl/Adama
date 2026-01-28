@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "main-search": {
+      "type": "main-search",
+      "settings": {
+        "columns_desktop": 4,
+        "products_per_page": 12
+      }
+    }
+  },
+  "order": ["main-search"]
+}
