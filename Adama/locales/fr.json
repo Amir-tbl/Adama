@@ -1,0 +1,122 @@
+{
+  "general": {
+    "meta": {
+      "page": "Page {{ page }}"
+    },
+    "password_page": {
+      "opening_soon": "Ouverture prochaine",
+      "password_placeholder": "Entrez le mot de passe",
+      "enter": "Entrer"
+    },
+    "navigation": {
+      "menu": "Menu"
+    },
+    "search": {
+      "title": "Recherche",
+      "placeholder": "Rechercher dans la boutique...",
+      "submit": "Rechercher",
+      "results_count": "{{ count }} résultats pour « {{ terms }} »",
+      "no_results": "Aucun résultat pour « {{ terms }} »."
+    },
+    "newsletter": {
+      "email_placeholder": "Entrez votre adresse e-mail",
+      "confirmation": "Merci pour votre inscription !"
+    },
+    "footer": {
+      "all_rights_reserved": "Tous droits réservés."
+    },
+    "collection": {
+      "view_all": "Voir tout"
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Passer au contenu",
+    "menu": "Menu",
+    "navigation": "Navigation",
+    "search": "Rechercher",
+    "account": "Compte",
+    "cart": "Panier",
+    "close": "Fermer",
+    "announcement": "Annonce",
+    "pagination": "Pagination",
+    "previous_page": "Page précédente",
+    "next_page": "Page suivante"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "sold_out": "Épuisé",
+      "unavailable": "Indisponible",
+      "on_sale": "Solde",
+      "new": "Nouveau",
+      "from": "À partir de",
+      "quantity": "Quantité",
+      "decrease_quantity": "Diminuer la quantité",
+      "increase_quantity": "Augmenter la quantité",
+      "size_guide": "Guide des tailles",
+      "add_to_wishlist": "Ajouter aux favoris",
+      "quick_view": "Aperçu rapide",
+      "media_number": "Vue {{ number }}"
+    }
+  },
+  "collections": {
+    "general": {
+      "product_count": "{{ count }} produits",
+      "no_matches": "Aucun produit ne correspond à vos filtres."
+    },
+    "sorting": {
+      "title": "Trier par"
+    },
+    "filtering": {
+      "filter": "Filtrer",
+      "apply": "Appliquer les filtres",
+      "clear_all": "Tout effacer",
+      "min_price": "Prix minimum",
+      "max_price": "Prix maximum"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Votre panier",
+      "empty": "Votre panier est vide.",
+      "subtotal": "Sous-total",
+      "checkout": "Paiement",
+      "continue_shopping": "Continuer vos achats",
+      "view_cart": "Voir le panier",
+      "remove": "Supprimer",
+      "note": "Note de commande",
+      "note_placeholder": "Ajoutez une note à votre commande...",
+      "shipping_at_checkout": "Frais de livraison et taxes calculés au paiement.",
+      "item_added": "Article ajouté au panier",
+      "decrease": "Diminuer la quantité",
+      "increase": "Augmenter la quantité"
+    },
+    "label": {
+      "product": "Produit",
+      "price": "Prix",
+      "quantity": "Quantité",
+      "total": "Total"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Compte"
+    }
+  },
+  "contact": {
+    "form": {
+      "name": "Nom",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "subject": "Sujet",
+      "message": "Message",
+      "send": "Envoyer le message",
+      "select_subject": "Sélectionnez un sujet",
+      "general_inquiry": "Demande générale",
+      "order_support": "Support commande",
+      "returns": "Retours & Échanges",
+      "wholesale": "Grossiste",
+      "post_success": "Merci pour votre message. Nous vous répondrons dans les plus brefs délais."
+    }
+  }
+}

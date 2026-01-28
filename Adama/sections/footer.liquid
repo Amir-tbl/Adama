@@ -1,0 +1,189 @@
+<footer class="footer" role="contentinfo">
+  <div class="footer__top container">
+    <div class="footer__grid">
+      {%- comment -%} Brand Column {%- endcomment -%}
+      <div class="footer__column footer__column--brand">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: 200 }}"
+            alt="{{ shop.name }}"
+            width="150"
+            height="auto"
+            loading="lazy"
+            class="footer__logo"
+          >
+        {%- else -%}
+          <h3 class="footer__brand-name">{{ shop.name }}</h3>
+        {%- endif -%}
+        {%- if section.settings.description != blank -%}
+          <p class="footer__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+        <div class="footer__social">
+          {%- if settings.social_instagram_link != blank -%}
+            <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer__social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_facebook_link != blank -%}
+            <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="footer__social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_twitter_link != blank -%}
+            <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="footer__social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+              </svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_pinterest_link != blank -%}
+            <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener noreferrer" aria-label="Pinterest" class="footer__social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M8 12a4 4 0 1 1 8 0c0 4-3 6-3 6m-2-10l1 8"/>
+                <circle cx="12" cy="12" r="10"/>
+              </svg>
+            </a>
+          {%- endif -%}
+          {%- if settings.social_tiktok_link != blank -%}
+            <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="footer__social-link">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+              </svg>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Navigation Columns {%- endcomment -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'menu' -%}
+          <div class="footer__column" {{ block.shopify_attributes }}>
+            <h4 class="footer__heading">{{ block.settings.heading }}</h4>
+            {%- if block.settings.menu != blank -%}
+              <ul class="footer__links">
+                {%- for link in block.settings.menu.links -%}
+                  <li>
+                    <a href="{{ link.url }}" class="footer__link">{{ link.title }}</a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- if block.type == 'text' -%}
+          <div class="footer__column" {{ block.shopify_attributes }}>
+            <h4 class="footer__heading">{{ block.settings.heading }}</h4>
+            <div class="footer__text rte">{{ block.settings.text }}</div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <div class="container footer__bottom-inner">
+      <p class="footer__copyright">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.
+        {{ 'general.footer.all_rights_reserved' | t }}
+      </p>
+      <div class="footer__payment">
+        {%- unless shop.enabled_payment_types == empty -%}
+          <ul class="footer__payment-list" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li class="footer__payment-item">
+                {{ type | payment_type_svg_tag: class: 'footer__payment-icon' }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endunless -%}
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "default": "Timeless elegance meets modern style. Premium quality clothing for the discerning individual.",
+      "label": "Brand description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Quick Links",
+          "label": "Heading"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "default": "footer",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Contact",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "default": "<p>Email: hello@example.com<br>Mon-Fri: 9am - 6pm</p>",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "default": {
+    "blocks": [
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "Shop"
+        }
+      },
+      {
+        "type": "menu",
+        "settings": {
+          "heading": "Information"
+        }
+      },
+      {
+        "type": "text",
+        "settings": {
+          "heading": "Contact Us",
+          "text": "<p>Email: hello@example.com<br>Phone: +1 234 567 890<br>Mon-Fri: 9am - 6pm</p>"
+        }
+      }
+    ]
+  }
+}
+{% endschema %}

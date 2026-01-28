@@ -1,0 +1,107 @@
+<div class="featured-collection section-spacing" data-animate="fade-in">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <div class="section-header" data-animate="fade-up">
+        <h2 class="section-header__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.description != blank -%}
+          <p class="section-header__description">{{ section.settings.description }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="product-grid product-grid--{{ section.settings.columns_desktop }}-col" data-animate="fade-up" data-delay="200">
+      {%- if section.settings.collection != blank -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          <div class="product-grid__item" data-animate="fade-up" data-delay="{{ forloop.index | times: 100 }}">
+            {% render 'product-card', product: product, show_vendor: section.settings.show_vendor %}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          <div class="product-grid__item" data-animate="fade-up" data-delay="{{ forloop.index | times: 100 }}">
+            <div class="product-card">
+              <div class="product-card__media">
+                {{ 'product-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+              <div class="product-card__info">
+                <h3 class="product-card__title">Example Product {{ forloop.index }}</h3>
+                <p class="product-card__price">{{ 4999 | money }}</p>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_view_all and section.settings.collection != blank -%}
+      <div class="section-footer" data-animate="fade-up">
+        <a href="{{ section.settings.collection.url }}" class="btn btn--secondary">
+          {{ 'general.collection.view_all' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "tag": "section",
+  "class": "section-featured-collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Featured Collection",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "options": [
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" }
+      ],
+      "default": "4",
+      "label": "Desktop columns"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "Show vendor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "default": true,
+      "label": "Show 'View all' button"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "main-product": {
+      "type": "main-product",
+      "settings": {
+        "show_vendor": true,
+        "show_sku": false,
+        "enable_image_zoom": true,
+        "show_share_buttons": true
+      },
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "description": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Description",
+            "content_source": "description"
+          }
+        },
+        "materials": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Materials & Care",
+            "content": "<p>Please refer to the product label for specific care instructions.</p>"
+          }
+        },
+        "shipping": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping & Returns",
+            "content": "<p>Free shipping on orders over $150. Standard delivery in 3-5 business days. Free returns within 30 days.</p>"
+          }
+        },
+        "size_guide": {
+          "type": "size_guide",
+          "settings": {
+            "heading": "Size Guide"
+          }
+        }
+      },
+      "block_order": ["title", "price", "variant_picker", "quantity_selector", "buy_buttons", "description", "materials", "shipping", "size_guide"]
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You May Also Like",
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": ["main-product", "related-products"]
+}

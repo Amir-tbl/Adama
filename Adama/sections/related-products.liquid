@@ -1,0 +1,42 @@
+{%- if recommendations.performed and recommendations.products_count > 0 -%}
+  <div class="related-products section-spacing" data-animate="fade-in">
+    <div class="container">
+      <div class="section-header" data-animate="fade-up">
+        <h2 class="section-header__title">{{ section.settings.heading }}</h2>
+      </div>
+
+      <div class="product-grid product-grid--4-col" data-animate="fade-up" data-delay="200">
+        {%- for product in recommendations.products limit: section.settings.products_to_show -%}
+          <div class="product-grid__item" data-animate="fade-up" data-delay="{{ forloop.index | times: 100 }}">
+            {% render 'product-card', product: product %}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Related Products",
+  "tag": "section",
+  "class": "section-related-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "You May Also Like",
+      "label": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Products to show"
+    }
+  ]
+}
+{% endschema %}

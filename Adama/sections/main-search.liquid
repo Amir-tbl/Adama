@@ -1,0 +1,110 @@
+<div class="search-page section-spacing">
+  <div class="container">
+    <h1 class="search-page__title">{{ 'general.search.title' | t }}</h1>
+
+    <div class="search-page__form">
+      <form action="{{ routes.search_url }}" method="get" role="search" class="search-form">
+        <input type="hidden" name="type" value="product">
+        <div class="search-form__field">
+          <input
+            type="search"
+            name="q"
+            value="{{ search.terms | escape }}"
+            class="search-form__input input-field"
+            placeholder="{{ 'general.search.placeholder' | t }}"
+            aria-label="{{ 'general.search.placeholder' | t }}"
+          >
+          <button type="submit" class="btn btn--primary search-form__submit">
+            {{ 'general.search.submit' | t }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <p class="search-page__count">
+          {{ 'general.search.results_count' | t: count: search.results_count, terms: search.terms }}
+        </p>
+
+        <div class="product-grid product-grid--{{ section.settings.columns_desktop }}-col">
+          {%- paginate search.results by section.settings.products_per_page -%}
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                <div class="product-grid__item" data-animate="fade-up" data-delay="{{ forloop.index | times: 50 }}">
+                  {% render 'product-card', product: item %}
+                </div>
+              {%- else -%}
+                <div class="product-grid__item" data-animate="fade-up" data-delay="{{ forloop.index | times: 50 }}">
+                  <article class="search-result">
+                    <h3 class="search-result__title">
+                      <a href="{{ item.url }}">{{ item.title }}</a>
+                    </h3>
+                    <p class="search-result__excerpt">{{ item.content | strip_html | truncate: 150 }}</p>
+                  </article>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endpaginate -%}
+        </div>
+
+        {%- paginate search.results by section.settings.products_per_page -%}
+          {%- if paginate.pages > 1 -%}
+            <nav class="pagination" role="navigation" aria-label="{{ 'accessibility.pagination' | t }}">
+              <ul class="pagination__list">
+                {%- if paginate.previous -%}
+                  <li><a href="{{ paginate.previous.url }}" class="pagination__link" aria-label="{{ 'accessibility.previous_page' | t }}">&laquo;</a></li>
+                {%- endif -%}
+                {%- for part in paginate.parts -%}
+                  <li>
+                    {%- if part.is_link -%}
+                      <a href="{{ part.url }}" class="pagination__link">{{ part.title }}</a>
+                    {%- else -%}
+                      <span class="pagination__link{% if part.title == paginate.current_page %} pagination__link--current{% endif %}">{{ part.title }}</span>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+                {%- if paginate.next -%}
+                  <li><a href="{{ paginate.next.url }}" class="pagination__link" aria-label="{{ 'accessibility.next_page' | t }}">&raquo;</a></li>
+                {%- endif -%}
+              </ul>
+            </nav>
+          {%- endif -%}
+        {%- endpaginate -%}
+      {%- else -%}
+        <div class="search-page__empty">
+          <p>{{ 'general.search.no_results' | t: terms: search.terms }}</p>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Search Results",
+  "tag": "section",
+  "class": "section-search",
+  "settings": [
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "options": [
+        { "value": "3", "label": "3 columns" },
+        { "value": "4", "label": "4 columns" }
+      ],
+      "default": "4",
+      "label": "Desktop columns"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "default": 12,
+      "label": "Results per page"
+    }
+  ]
+}
+{% endschema %}

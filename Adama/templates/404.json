@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main-404": {
+      "type": "main-404",
+      "settings": {
+        "heading": "Page Not Found",
+        "subheading": "The page you're looking for doesn't exist or has been moved.",
+        "button_label": "Back to Homepage",
+        "button_link": "/"
+      }
+    }
+  },
+  "order": ["main-404"]
+}

@@ -1,0 +1,45 @@
+<div class="page-404 section-spacing">
+  <div class="container container--narrow">
+    <div class="page-404__content" data-animate="fade-up">
+      <h1 class="page-404__heading">404</h1>
+      <h2 class="page-404__subheading">{{ section.settings.heading }}</h2>
+      <p class="page-404__text">{{ section.settings.subheading }}</p>
+      <a href="{{ section.settings.button_link | default: routes.root_url }}" class="btn btn--primary">
+        {{ section.settings.button_label | default: 'Back to Homepage' }}
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "404 Page",
+  "tag": "section",
+  "class": "section-404",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Page Not Found",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "default": "The page you're looking for doesn't exist or has been moved.",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Back to Homepage",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ]
+}
+{% endschema %}

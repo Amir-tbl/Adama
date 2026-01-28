@@ -1,0 +1,81 @@
+<div class="newsletter section-spacing" data-animate="fade-in">
+  <div class="container">
+    <div class="newsletter__inner">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="newsletter__heading" data-animate="fade-up">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subheading != blank -%}
+        <p class="newsletter__subheading" data-animate="fade-up" data-delay="100">{{ section.settings.subheading }}</p>
+      {%- endif -%}
+
+      <div class="newsletter__form-wrapper" data-animate="fade-up" data-delay="200">
+        {% form 'customer', class: 'newsletter__form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter__field-group">
+            <input
+              type="email"
+              name="contact[email]"
+              class="newsletter__input input-field"
+              placeholder="{{ 'general.newsletter.email_placeholder' | t }}"
+              aria-label="{{ 'general.newsletter.email_placeholder' | t }}"
+              required
+              autocomplete="email"
+            >
+            <button type="submit" class="btn btn--primary newsletter__submit">
+              {{ section.settings.button_label | default: 'Subscribe' }}
+            </button>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <p class="newsletter__success">{{ 'general.newsletter.confirmation' | t }}</p>
+          {%- endif -%}
+          {%- if form.errors -%}
+            <p class="newsletter__error">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+        {% endform %}
+      </div>
+
+      {%- if section.settings.disclaimer != blank -%}
+        <p class="newsletter__disclaimer" data-animate="fade-up" data-delay="300">{{ section.settings.disclaimer }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "section-newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Join the Family",
+      "label": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "default": "Subscribe to receive exclusive offers, early access to new collections, and styling tips.",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Subscribe",
+      "label": "Button label"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "default": "By subscribing, you agree to our Privacy Policy.",
+      "label": "Disclaimer text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

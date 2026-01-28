@@ -1,0 +1,24 @@
+<div class="page section-spacing">
+  <div class="container{% if section.settings.narrow_content %} container--narrow{% endif %}">
+    <h1 class="page__title">{{ page.title }}</h1>
+    <div class="page__content rte">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "tag": "section",
+  "class": "section-page",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "narrow_content",
+      "default": true,
+      "label": "Narrow content width"
+    }
+  ]
+}
+{% endschema %}

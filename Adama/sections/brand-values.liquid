@@ -1,0 +1,107 @@
+<div class="brand-values section-spacing" data-animate="fade-in">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <div class="section-header" data-animate="fade-up">
+        <h2 class="section-header__title">{{ section.settings.title }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="brand-values__grid">
+      {%- for block in section.blocks -%}
+        <div class="brand-value" {{ block.shopify_attributes }} data-animate="fade-up" data-delay="{{ forloop.index | times: 150 }}">
+          <div class="brand-value__icon">
+            {%- case block.settings.icon -%}
+              {%- when 'quality' -%}
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              {%- when 'sustainable' -%}
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                  <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                  <path d="M2 12h2M20 12h2M12 2v2M12 20v2"/>
+                  <path d="M7 7l1.5 1.5M15.5 15.5L17 17M17 7l-1.5 1.5M8.5 15.5L7 17"/>
+                </svg>
+              {%- when 'shipping' -%}
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                </svg>
+              {%- when 'returns' -%}
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                </svg>
+              {%- else -%}
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                  <polyline points="22 4 12 14.01 9 11.01"/>
+                </svg>
+            {%- endcase -%}
+          </div>
+          <h3 class="brand-value__heading">{{ block.settings.heading }}</h3>
+          <p class="brand-value__text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Values",
+  "tag": "section",
+  "class": "section-brand-values",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "default": "Our Commitment",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "options": [
+            { "value": "quality", "label": "Quality" },
+            { "value": "sustainable", "label": "Sustainable" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "returns", "label": "Returns" },
+            { "value": "other", "label": "Checkmark" }
+          ],
+          "default": "quality",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "default": "Value Heading",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "default": "Describe this value proposition.",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Brand Values",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "quality", "heading": "Premium Quality" } },
+        { "type": "value", "settings": { "icon": "sustainable", "heading": "Sustainable" } },
+        { "type": "value", "settings": { "icon": "shipping", "heading": "Free Shipping" } },
+        { "type": "value", "settings": { "icon": "returns", "heading": "Easy Returns" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
